@@ -1,0 +1,31 @@
+@font-face {
+  font-family: "Inter";
+  src: url("../../public/Inter/Inter-VariableFont_slnt\,wght.ttf");
+  /* src: url("../../public/Inter/static/Inter-Black.ttf");
+  src: url("../../public/Inter/static/Inter-Bold.ttf");
+  src: url("../../public/Inter/static/Inter-ExtraBold.ttf");
+  src: url("../../public/Inter/static/Inter-ExtraLight.ttf");
+  src: url("../../public/Inter/static/Inter-Light.ttf");
+  src: url("../../public/Inter/static/Inter-Medium.ttf");
+  src: url("../../public/Inter/static/Inter-Regular.ttf");
+  src: url("../../public/Inter/static/Inter-SemiBold.ttf");
+  src: url("../../public/Inter/static/Inter-Thin.ttf"); */
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Inter;
+  font-weight: 400;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
