@@ -1,6 +1,9 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export const Header = () => {
+  const router = useRouter();
+
   const menu = [
     {
       name: "Home",
@@ -32,18 +35,35 @@ export const Header = () => {
         <div className="w-full flex space-x-20 items-center justify-end text-lg leading-5 text-high-contrast">
           <ul className="flex space-x-20">
             {menu.map((item, key) => (
-              <li key={key}>
+              <li
+                key={key}
+                className={`${
+                  router.pathname === item.to ? "font-semibold" : ""
+                }`}
+              >
                 <Link href={item.to}>{item.name}</Link>
               </li>
             ))}
           </ul>
           <div className="flex space-x-2">
             <Link href="/login">
-              <a>Login</a>
+              <a
+                className={`${
+                  router.pathname === "/login" ? "font-semibold" : ""
+                }`}
+              >
+                Login
+              </a>
             </Link>
             <p>/</p>
             <Link href="/register">
-              <a>Register</a>
+              <a
+                className={`${
+                  router.pathname === "/register" ? "font-semibold" : ""
+                }`}
+              >
+                Register
+              </a>
             </Link>
           </div>
         </div>
