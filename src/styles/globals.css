@@ -7,9 +7,9 @@
   src: url("../../public/Inter/static/Inter-ExtraLight.ttf");
   src: url("../../public/Inter/static/Inter-Light.ttf");
   src: url("../../public/Inter/static/Inter-Medium.ttf");
-  src: url("../../public/Inter/static/Inter-Regular.ttf");
-  src: url("../../public/Inter/static/Inter-SemiBold.ttf");
-  src: url("../../public/Inter/static/Inter-Thin.ttf"); */
+  src: url("../../public/Inter/static/Inter-Regular.ttf"); */
+  /* src: url("../../public/Inter/static/Inter-SemiBold.ttf"); */
+  /* src: url("../../public/Inter/static/Inter-Thin.ttf"); */
 }
 
 html,
@@ -18,6 +18,7 @@ body {
   margin: 0;
   font-family: Inter;
   font-weight: 400;
+  background-color: #f8fafb;
 }
 
 a {
@@ -28,4 +29,10 @@ a {
 * {
   box-sizing: border-box;
   scroll-behavior: smooth;
+}
+
+@layer base {
+  html {
+    font-family: Inter, sans-serif;
+  }
 }
