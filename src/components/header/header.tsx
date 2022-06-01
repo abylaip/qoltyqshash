@@ -15,7 +15,7 @@ export const Header = () => {
     },
     {
       name: "My contracts",
-      to: "/my-contacts",
+      to: "/my-contracts",
     },
     {
       name: "Available Contracts",
