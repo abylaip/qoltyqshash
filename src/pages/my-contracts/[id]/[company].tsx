@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Progress } from "@ui";
 import { Header, News } from "@components";
+import Link from "next/link";
 
 const Company = () => {
   return (
@@ -8,7 +9,7 @@ const Company = () => {
       <Header />
       <div className="px-32 py-5 flex flex-col space-y-5">
         <p className="text-gray-400 cursor-default">
-          Main page / My Contracts /{" "}
+          Main page / <Link href="/my-contracts">My Contracts</Link> /{" "}
           <span className="font-semibold text-accent">Abylay's company</span>
         </p>
         <section className="rounded-lg bg-white shadow-lg">

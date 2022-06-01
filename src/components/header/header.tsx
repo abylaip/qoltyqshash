@@ -10,16 +10,12 @@ export const Header = () => {
       to: "/",
     },
     {
-      name: "Companies",
-      to: "/companies",
-    },
-    {
       name: "My contracts",
       to: "/my-contracts",
     },
     {
-      name: "Available Contracts",
-      to: "/available-contracts",
+      name: "Jobs",
+      to: "/jobs",
     },
     {
       name: "Notifications",

@@ -1,8 +1,10 @@
 import { Header } from "@components";
 import Image from "next/image";
 import { Progress, Switch } from "@ui";
+import { useRouter } from "next/router";
 
 const Profile = () => {
+  const router = useRouter();
   return (
     <>
       <Header />
@@ -91,7 +93,10 @@ const Profile = () => {
             from="2022"
             to="2030"
           />
-          <div className="pt-4 w-full flex flex-row items-center justify-between cursor-pointer">
+          <div
+            onClick={() => router.push("/my-contracts")}
+            className="pt-4 w-full flex flex-row items-center justify-between cursor-pointer"
+          >
             <p className="text-high-contrast text-lg font-semibold">
               Show more
             </p>
