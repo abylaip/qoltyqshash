@@ -1,7 +1,10 @@
 import { Header } from "@components";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const Login = () => {
+  const router = useRouter();
   return (
     <>
       <Header />
@@ -29,12 +32,17 @@ const Login = () => {
               />
             </div>
             <div className="flex flex-col space-y-4">
-              <button className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5">
+              <button
+                onClick={() => router.push("/profile")}
+                className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5"
+              >
                 Log in
               </button>
-              <button className="border border-accent rounded-md w-full py-3 text-accent font-semibold leading-5">
-                Don’t have an account yet? Sign up
-              </button>
+              <Link href="/register">
+                <a className="border border-accent rounded-md w-full py-3 text-accent font-semibold leading-5 text-center">
+                  Don’t have an account yet? Sign up
+                </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -28,7 +28,7 @@ export const Header = () => {
   ];
   return (
     <header className="sticky top-0 z-10 py-5 bg-white shadow-lg">
-      <div className="px-20 flex w-full">
+      <div className="px-32 flex w-full">
         <Link href="/">
           <a className="text-accent font-bold text-3xl leading-9">QLS</a>
         </Link>

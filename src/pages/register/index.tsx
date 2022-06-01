@@ -1,5 +1,6 @@
 import { Header } from "@components";
 import Image from "next/image";
+import Link from "next/link";
 
 const Register = () => {
   return (
@@ -40,11 +41,13 @@ const Register = () => {
             </div>
             <div className="flex flex-col space-y-4">
               <button className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5">
-                Log in
+                Sign up
               </button>
-              <button className="border border-accent rounded-md w-full py-3 text-accent font-semibold leading-5">
-                Don’t have an account yet? Sign up
-              </button>
+              <Link href="/login">
+                <a className="border border-accent rounded-md w-full py-3 text-accent font-semibold leading-5 text-center">
+                  Already have an account? Log in
+                </a>
+              </Link>
             </div>
           </div>
         </div>
