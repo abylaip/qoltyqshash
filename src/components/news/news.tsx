@@ -24,7 +24,7 @@ export const News = () => {
         <img src="/static/cowboy.jpeg" className="w-full relative" />
       </div>
       <div className="text-low-contrast flex flex-row justify-between">
-        <p>300 000 other people liked this post</p>
+        <p>300 000 people liked this post</p>
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
