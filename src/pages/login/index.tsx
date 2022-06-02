@@ -33,7 +33,7 @@ const Login = () => {
             </div>
             <div className="flex flex-col space-y-4">
               <button
-                onClick={() => router.push("/profile")}
+                onClick={() => router.push("/profile/company")}
                 className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5"
               >
                 Log in

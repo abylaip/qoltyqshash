@@ -1,4 +1,5 @@
 import { ReactChild } from "react";
+import { useRouter } from "next/router";
 
 export const Modal = ({
   showModal,
@@ -9,13 +10,18 @@ export const Modal = ({
   setShowModal: any;
   children: ReactChild;
 }) => {
+  const router = useRouter();
   return (
     <div
       className={`${
         showModal ? "flex" : "hidden"
       } justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none bg-black bg-opacity-50`}
     >
-      <div className="relative my-6 mx-auto w-1/2">
+      <div
+        className={`relative my-6 mx-auto ${
+          router.pathname === "/profile/company" ? "w-2/3" : "w-1/2"
+        }`}
+      >
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none opacity-100">
           <div className="flex flex-col items-start justify-between p-5 b rounded-t">
             <div className="flex w-full justify-end">

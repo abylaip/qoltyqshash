@@ -16,6 +16,9 @@ module.exports = {
       screens: {
         monic: "1800px",
       },
+      height: {
+        contract: "600px",
+      },
     },
   },
   variants: {
