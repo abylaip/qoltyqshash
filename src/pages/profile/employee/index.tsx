@@ -1,13 +1,37 @@
-import { Header } from "@components";
+import { useState } from "react";
+import { Header, Modal } from "@components";
 import Image from "next/image";
 import { Progress, Switch } from "@ui";
 import { useRouter } from "next/router";
 
 const Profile = () => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <>
       <Header />
+      <Modal showModal={showModal} setShowModal={setShowModal}>
+        <div className="flex flex-col space-y-5 w-full">
+          <p className="text-accent text-xl font-medium">Add an education</p>
+          <div className="space-y-2">
+            <p className="text-low-contrast">Write a place of study</p>
+            <input
+              type="text"
+              className="rounded bg-blue-50 p-3 w-full"
+              placeholder="Name"
+            />
+          </div>
+          <div className="space-y-2">
+            <p className="text-low-contrast">Write a degree</p>
+            <input
+              type="text"
+              className="rounded bg-blue-50 p-3 w-full"
+              placeholder="Degree"
+            />
+          </div>
+          <button className="bg-accent py-2 rounded text-white">Add</button>
+        </div>
+      </Modal>
       <div className="px-32 py-5 flex flex-col space-y-5">
         <p className="text-gray-400 cursor-default">
           Main page / <span className="font-semibold text-accent">Profile</span>
@@ -31,7 +55,7 @@ const Profile = () => {
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-center justify-start">
               <Progress value={100} />
-              <Progress value={60} />
+              <Progress value={99} />
               <Progress value={40} />
             </div>
           </div>
@@ -43,8 +67,24 @@ const Profile = () => {
           </div>
         </section>
         <section className="rounded-lg bg-white shadow-lg p-7">
-          <div className="pb-4 border-b border-gray-300">
+          <div className="pb-4 border-b border-gray-300 flex flex-row justify-between items-center">
             <p className="text-primary font-semibold text-xl">Education</p>
+            <button onClick={() => setShowModal(true)} className="text-accent">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4v16m8-8H4"
+                />
+              </svg>
+            </button>
           </div>
           <InfoCard
             name="AITU"
