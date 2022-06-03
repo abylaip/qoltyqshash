@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Progress } from "@ui";
 import { Header, News, Modal } from "@components";
 import { useRouter } from "next/router";
+import { useMoralis } from "react-moralis";
 
 const Profile = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [secondStep, setSecondStep] = useState<boolean>(false);
   const router = useRouter();
+  const [name, setName] = useState<any>("");
+  const [field, setField] = useState<any>("");
+  const [position, setPosition] = useState("");
+  const [eth, setEth] = useState("");
+
+  useEffect(() => {
+    const q_name = localStorage.getItem("name");
+    setName(q_name);
+    const q_field = localStorage.getItem("field");
+    setField(q_field);
+  }, []);
+
   return (
     <>
       <Header />
@@ -31,9 +44,13 @@ const Profile = () => {
             </div>
           </div>
           {secondStep ? (
-            <SecondStep />
+            <SecondStep position={position} eth={eth} />
           ) : (
-            <FirstStep setSecondStep={setSecondStep} />
+            <FirstStep
+              setPosition={setPosition}
+              setEth={setEth}
+              setSecondStep={setSecondStep}
+            />
           )}
         </div>
       </Modal>
@@ -53,15 +70,15 @@ const Profile = () => {
               />
               <div>
                 <p className="font-semibold text-high-contrast text-xl">
-                  Abylay's company
+                  {name}
                 </p>
-                <p className="text-gray-500">IT/Blockchain</p>
+                <p className="text-gray-500">{field}</p>
               </div>
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-center justify-start">
               <Progress value={100} />
-              <Progress value={60} />
-              <Progress value={40} />
+              <Progress value={100} />
+              <Progress value={100} />
             </div>
           </div>
           <div className="py-5 px-7 w-full flex flex-row">
@@ -76,7 +93,7 @@ const Profile = () => {
           </div>
           <div className="pt-4 flex flex-col sapce-y-2">
             <p className="text-high-contrast font-semibold text-lg">
-              Och horoshaya companiya, vsem sovetuyu bazara net
+              Description
             </p>
             <p className="text-low-contrast">Almaty, Kazakhstan</p>
           </div>
@@ -101,20 +118,6 @@ const Profile = () => {
               </svg>
             </button>
           </div>
-          <ContractCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
-          <ContractCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
           <ContractCard
             name="Qoltyqshash"
             field="IT/Blockchain"
@@ -147,13 +150,68 @@ const Profile = () => {
             </button>
           </div>
         </section>
-        <News />
-        <News />
-        <News />
+        {news.map((item) => (
+          <News
+            name={item.name}
+            avatar={item.avatar}
+            createdAt={item.createdAt}
+            textContent={item.textContent}
+            imageContent={item.imageContent}
+            likesCount={item.likesCount}
+          />
+        ))}
       </div>
     </>
   );
 };
+
+const news = [
+  {
+    avatar: "/static/Zhandos.jpeg",
+    name: "Zhandos Abdireshov",
+    createdAt: "1 minute ago",
+    textContent:
+      "Hey guys! I was officially accepted at Deloitte for the position of middle data scientist! I'm looking forward to working with @deloitte!",
+    imageContent: "/static/data_science.jpeg",
+    likesCount: 17,
+  },
+  {
+    avatar: "/static/nezuko.jpeg",
+    name: "Alibek Kuantkhan",
+    createdAt: "3 hours ago",
+    textContent:
+      "Hello! My name is Alibek, and I am new user of this amazing web-site",
+    imageContent: "/static/welcome.jpeg",
+    likesCount: 7,
+  },
+  {
+    avatar: "/static/kaspi.png",
+    name: "Kaspi",
+    createdAt: "Yesterday at 6:37 P.M.",
+    textContent:
+      "Hello everybody! We would like to announce that 15th June we will start Kaspi Data Scienc Academy! Join us! Other information will be available in 10th June, so follow us!",
+    imageContent: "/static/datalab.png",
+    likesCount: 89,
+  },
+  {
+    avatar: "/static/elefanto.svg",
+    name: "Elefanto",
+    createdAt: "2 weeks ago",
+    textContent:
+      "Good day dear friends, we would like to congratulate our Mussina Medina with a promotion to middle ux/ui designer! Сongratulations!",
+    imageContent: "/static/uxui.avif",
+    likesCount: 20,
+  },
+  {
+    avatar: "/static/placeholder.png",
+    name: "Magripa",
+    createdAt: "1 months ago",
+    textContent:
+      "Attention! Attention! Attention! Today is the historical day, because we start our QLS website to the whole world! Come and enjoy!!!",
+    imageContent: "/static/firework.jpeg",
+    likesCount: 667,
+  },
+];
 
 const ContractCard = ({
   name,
@@ -184,7 +242,15 @@ const ContractCard = ({
   );
 };
 
-const FirstStep = ({ setSecondStep }: { setSecondStep: any }) => {
+const FirstStep = ({
+  setPosition,
+  setEth,
+  setSecondStep,
+}: {
+  setPosition: any;
+  setEth: any;
+  setSecondStep: any;
+}) => {
   return (
     <div className="flex flex-col space-y-5">
       <div className="space-y-2">
@@ -195,14 +261,7 @@ const FirstStep = ({ setSecondStep }: { setSecondStep: any }) => {
           type="text"
           className="rounded bg-blue-50 p-3 w-full"
           placeholder="Blockchain address"
-        />
-      </div>
-      <div className="space-y-2">
-        <p className="text-low-contrast">Write your private key</p>
-        <input
-          type="text"
-          className="rounded bg-blue-50 p-3 w-full"
-          placeholder="Private key"
+          onChange={(e) => setEth(e.target.value)}
         />
       </div>
       <div className="space-y-2">
@@ -211,6 +270,7 @@ const FirstStep = ({ setSecondStep }: { setSecondStep: any }) => {
           type="text"
           className="rounded bg-blue-50 p-3 w-full"
           placeholder="Position"
+          onChange={(e) => setPosition(e.target.value)}
         />
       </div>
       <button
@@ -225,7 +285,50 @@ const FirstStep = ({ setSecondStep }: { setSecondStep: any }) => {
   );
 };
 
-const SecondStep = () => {
+const SecondStep = ({ position, eth }: { position: string; eth: string }) => {
+  const { Moralis } = useMoralis();
+
+  const Contract = Moralis.Object.extend("Contract");
+  const contracts = new Contract();
+
+  const [clientName, setClientName] = useState("");
+  const [clientMail, setClientMail] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [companyMail, setCompanyMail] = useState("");
+  const [contractMonthDay, setContractMonthDay] = useState("");
+  const [contractYear, setContractYear] = useState("");
+  const [services, setServices] = useState("");
+  const [period, setPeriod] = useState("");
+  const [firstCheck, setFirstCheck] = useState(false);
+  const [secondCheck, setSecondCheck] = useState(false);
+  const [thirdCheck, setThirdCheck] = useState(false);
+  const [fourthCheck, setFourthCheck] = useState(false);
+  const [checkInt, setCheckInt] = useState("");
+  const [paymentComission, setPaymentComission] = useState("");
+  const [paymentOther, setPaymentOther] = useState("");
+
+  const handleSendContract = () => {
+    contracts.save({
+      toEthAddress: eth,
+      position: position,
+      clientName: clientName,
+      clientMail: clientMail,
+      companyName: companyName,
+      companyMail: companyMail,
+      contractMonthDay: contractMonthDay,
+      contractYear: contractYear,
+      services: services,
+      period: period,
+      firstCheck: firstCheck,
+      secondCheck: secondCheck,
+      thirdCheck: thirdCheck,
+      fourthCheck: fourthCheck,
+      checkInt: checkInt,
+      paymentComission: paymentComission,
+      paymentOther: paymentOther,
+    });
+  };
+
   return (
     <div className="h-contract overflow-y-scroll px-3 space-y-4">
       <div className="flex justify-center">
@@ -239,31 +342,61 @@ const SecondStep = () => {
           Contractor Agreement (“Agreement”) is made between:
         </p>
         <label>
-          Client: <input type="text" className="border-b border-black w-40" />{" "}
+          Client:{" "}
+          <input
+            onChange={(e) => setClientName(e.target.value)}
+            type="text"
+            className="border-b border-black w-40"
+          />{" "}
           with a mailing address of{" "}
-          <input type="text" className="border-b border-black w-40" />{" "}
+          <input
+            onChange={(e) => setClientMail(e.target.value)}
+            type="text"
+            className="border-b border-black w-40"
+          />{" "}
           (“Client”), and
         </label>
         <label>
           Contractor:{" "}
-          <input type="text" className="border-b border-black w-40" /> with a
-          mailing address of{" "}
-          <input type="text" className="border-b border-black w-40" />
+          <input
+            onChange={(e) => setCompanyName(e.target.value)}
+            type="text"
+            className="border-b border-black w-40"
+          />{" "}
+          with a mailing address of{" "}
+          <input
+            onChange={(e) => setCompanyMail(e.target.value)}
+            type="text"
+            className="border-b border-black w-40"
+          />
           (“Contractor”).
         </label>
         <label>
           WHEREAS the Client intends to pay the Contractor for Services
           provided, effective
           <br />
-          <input type="text" className="border-b border-black w-40" />, 20{" "}
-          <input type="text" className="border-b border-black w-5" />, under the
-          following terms and conditions:
+          <input
+            onChange={(e) => setContractMonthDay(e.target.value)}
+            type="text"
+            className="border-b border-black w-40"
+          />
+          , 20{" "}
+          <input
+            onChange={(e) => setContractYear(e.target.value)}
+            type="text"
+            className="border-b border-black w-5"
+          />
+          , under the following terms and conditions:
         </label>
         <p>
           <span className="font-bold">II. The Services.</span> The Contractor
           agrees to perform the following:
         </p>
-        <input type="text" className="border-b border-black w-10/12" />
+        <input
+          onChange={(e) => setServices(e.target.value)}
+          type="text"
+          className="border-b border-black w-10/12"
+        />
       </div>
       <div className="flex flex-col space-y-2 cursor-text mx-auto px-10">
         <p>
@@ -272,21 +405,54 @@ const SecondStep = () => {
           pay the following: (check one)
         </p>
         <label>
-          <input type="checkbox" /> -${" "}
-          <input type="text" className="border-b border-black w-24" /> /Hour.
+          <input
+            onChange={(e) => setFirstCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          -${" "}
+          <input
+            onChange={(e) => setCheckInt(e.target.value)}
+            type="text"
+            className="border-b border-black w-24"
+          />{" "}
+          /Hour.
         </label>
         <label>
-          <input type="checkbox" /> -${" "}
-          <input type="text" className="border-b border-black w-24" /> for the
-          Services.
+          <input
+            onChange={(e) => setFirstCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          -${" "}
+          <input
+            onChange={(e) => setCheckInt(e.target.value)}
+            type="text"
+            className="border-b border-black w-24"
+          />{" "}
+          for the Services.
         </label>
         <label>
-          <input type="checkbox" /> - Commission in the amount of:{" "}
-          <input type="text" className="border-b border-black" />
+          <input
+            onChange={(e) => setFirstCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Commission in the amount of:{" "}
+          <input
+            onChange={(e) => setPaymentComission(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
         </label>
         <label>
-          <input type="checkbox" /> - Other:{" "}
-          <input type="text" className="border-b border-black" />
+          <input
+            onChange={(e) => setFirstCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Other:{" "}
+          <input
+            onChange={(e) => setPaymentOther(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
         </label>
         <p>
           Completion shall be defined as the fulfillment of Services as
@@ -295,57 +461,118 @@ const SecondStep = () => {
         </p>
         <p>The Contractor agrees to be paid: (check one)</p>
         <label>
-          <input type="checkbox" /> - At completion of the Services performed.
+          <input
+            onChange={(e) => setSecondCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - At completion of the Services performed.
         </label>
         <label>
-          <input type="checkbox" /> - On a{" "}
-          <select name="period">
+          <input
+            onChange={(e) => setSecondCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - On a{" "}
+          <select onChange={(e) => setPeriod(e.target.value)} name="period">
             <option value="weekly">weekly</option>
             <option value="monthly">monthly</option>
             <option value="quarterly">quarterly</option>
           </select>{" "}
           basis beginning on
-          <input type="text" className="border-b border-black" />, 20{" "}
-          <input type="text" className="border-b border-black w-5" />
+          <input
+            onChange={(e) => setContractMonthDay(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
+          , 20{" "}
+          <input
+            onChange={(e) => setContractYear(e.target.value)}
+            type="text"
+            className="border-b border-black w-5"
+          />
           until the completion of the Services.
         </label>
         <label>
-          <input type="checkbox" /> - Other.
-          <input type="text" className="border-b border-black" />
+          <input
+            onChange={(e) => setSecondCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Other.
+          <input
+            onChange={(e) => setPaymentOther(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
         </label>
         <p>
           <span className="font-bold">IV. Due Date.</span> The Services provided
           by the Contractor shall: (check one)
         </p>
         <label>
-          <input type="checkbox" /> - Be completed by{" "}
-          <input type="text" className="border-b border-black" />, 20{" "}
-          <input type="text" className="border-b border-black w-5" />
+          <input
+            onChange={(e) => setThirdCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Be completed by{" "}
+          <input
+            onChange={(e) => setContractMonthDay(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
+          , 20{" "}
+          <input
+            onChange={(e) => setContractYear(e.target.value)}
+            type="text"
+            className="border-b border-black w-5"
+          />
         </label>
         <label>
-          <input type="checkbox" /> - Not have a due date.
+          <input
+            onChange={(e) => setThirdCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Not have a due date.
         </label>
         <label>
-          <input type="checkbox" /> - Other.
-          <input type="text" className="border-b border-black" />
+          <input
+            onChange={(e) => setThirdCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Other.
+          <input
+            onChange={(e) => setPaymentOther(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
         </label>
         <p>
           <span className="font-bold">V. Expenses.</span> The Contractor shall
           be: (check one)
         </p>
         <label>
-          <input type="checkbox" /> - Responsible for all expenses related to
-          providing the Services under this Agreement. This includes, but is not
-          limited to, supplies, equipment, operating costs, business costs,
-          employment costs, taxes, Social Security contributions/payments,
-          disability insurance, unemployment taxes, and any other cost that may
-          or may not be in connection with the Services provided Contractor.
+          <input
+            onChange={(e) => setFourthCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - Responsible for all expenses related to providing the Services under
+          this Agreement. This includes, but is not limited to, supplies,
+          equipment, operating costs, business costs, employment costs, taxes,
+          Social Security contributions/payments, disability insurance,
+          unemployment taxes, and any other cost that may or may not be in
+          connection with the Services provided Contractor.
         </label>
         <label>
-          <input type="checkbox" /> - *Reimbursed for the following expenses
-          that are attributable directly to the Services performed under this
-          Agreement
-          <input type="text" className="border-b border-black" />
+          <input
+            onChange={(e) => setFourthCheck(e.target.checked)}
+            type="checkbox"
+          />{" "}
+          - *Reimbursed for the following expenses that are attributable
+          directly to the Services performed under this Agreement
+          <input
+            onChange={(e) => setPaymentOther(e.target.value)}
+            type="text"
+            className="border-b border-black"
+          />
         </label>
         <p>
           *The Client will be required to pay the Contractor within thirty (30)
@@ -528,11 +755,13 @@ const SecondStep = () => {
           understandings between the Employer and Employee.
         </p>
       </div>
-      <button className="bg-accent py-2 rounded text-white w-full mx-auto">
+      <button
+        onClick={handleSendContract}
+        className="bg-accent py-2 rounded text-white w-full mx-auto"
+      >
         Sign a contract
       </button>
     </div>
   );
 };
-
 export default Profile;

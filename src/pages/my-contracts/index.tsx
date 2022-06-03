@@ -13,40 +13,33 @@ const MyContacts = () => {
   const companies = [
     {
       id: 1,
-      name: "Abylay's company",
+      name: "EPAM",
       contract: [
         {
           position: "Software Engineer",
           success: 94,
           from: "March 2022",
-          to: "May 2022",
+          to: "Septemberr 2022",
           status: "Active",
-        },
-        {
-          position: "Software Engineer",
-          success: 78,
-          from: "May 2022",
-          to: "June 2022",
-          status: "Passed",
         },
       ],
     },
     {
       id: 2,
-      name: "Alibek's company",
+      name: "SULU",
       contract: [
         {
-          position: "Frontend Engineer",
-          success: 100,
+          position: "Software Engineer",
+          success: 86,
           from: "November 2021",
-          to: "December 2021",
+          to: "February 2022",
           status: "Passed",
         },
         {
           position: "Frontend Engineer",
-          success: 32,
-          from: "May 2022",
-          to: "June 2022",
+          success: 71,
+          from: "May 2021",
+          to: "September 2021",
           status: "Passed",
         },
       ],

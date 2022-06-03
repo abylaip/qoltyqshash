@@ -16,7 +16,7 @@ const Company = () => {
       <div className="px-32 py-5 flex flex-col space-y-5">
         <p className="text-gray-400 cursor-default">
           Main page / <Link href="/my-contracts">My Contracts</Link> /{" "}
-          <span className="font-semibold text-accent">Abylay's company</span>
+          <span className="font-semibold text-accent">EPAM</span>
         </p>
         <section className="rounded-lg bg-white shadow-lg">
           <div className="py-6 rounded-t-xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
@@ -29,16 +29,14 @@ const Company = () => {
                 className="rounded-full"
               />
               <div>
-                <p className="font-semibold text-high-contrast text-xl">
-                  Abylay's company
-                </p>
+                <p className="font-semibold text-high-contrast text-xl">EPAM</p>
                 <p className="text-gray-500">IT/Blockchain</p>
               </div>
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-center justify-start">
               <Progress value={100} />
-              <Progress value={60} />
-              <Progress value={40} />
+              <Progress value={100} />
+              <Progress value={100} />
             </div>
           </div>
           <div className="py-5 px-7 w-full flex flex-row">
@@ -53,14 +51,21 @@ const Company = () => {
           </div>
           <div className="pt-4 flex flex-col sapce-y-2">
             <p className="text-high-contrast font-semibold text-lg">
-              Och horoshaya companiya, vsem sovetuyu bazara net
+              Description
             </p>
             <p className="text-low-contrast">Almaty, Kazakhstan</p>
           </div>
         </section>
-        <News />
-        <News />
-        <News />
+        {news.map((item) => (
+          <News
+            name={item.name}
+            avatar={item.avatar}
+            createdAt={item.createdAt}
+            textContent={item.textContent}
+            imageContent={item.imageContent}
+            likesCount={item.likesCount}
+          />
+        ))}
       </div>
     </>
   );
@@ -155,39 +160,11 @@ const Profile = () => {
             from="2020"
             to="2023"
           />
-          <InfoCard
-            name="AITU"
-            field="Bachelors degree"
-            location="Nur-sultan, Kazakhstan"
-            from="2020"
-            to="2023"
-          />
-          <InfoCard
-            name="AITU"
-            field="Bachelors degree"
-            location="Nur-sultan, Kazakhstan"
-            from="2020"
-            to="2023"
-          />
         </section>
         <section className="rounded-lg bg-white shadow-lg p-7">
           <div className="pb-4 border-b border-gray-300">
             <p className="text-primary font-semibold text-xl">Experience</p>
           </div>
-          <InfoCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
-          <InfoCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
           <InfoCard
             name="Qoltyqshash"
             field="IT/Blockchain"
@@ -253,5 +230,53 @@ const InfoCard = ({
     </div>
   );
 };
+
+const news = [
+  {
+    avatar: "/static/Zhandos.jpeg",
+    name: "Zhandos Abdireshov",
+    createdAt: "1 minute ago",
+    textContent:
+      "Hey guys! I was officially accepted at Deloitte for the position of middle data scientist! I'm looking forward to working with @deloitte!",
+    imageContent: "/static/data_science.jpeg",
+    likesCount: 17,
+  },
+  {
+    avatar: "/static/nezuko.jpeg",
+    name: "Alibek Kuantkhan",
+    createdAt: "3 hours ago",
+    textContent:
+      "Hello! My name is Alibek, and I am new user of this amazing web-site",
+    imageContent: "/static/welcome.jpeg",
+    likesCount: 7,
+  },
+  {
+    avatar: "/static/kaspi.png",
+    name: "Kaspi",
+    createdAt: "Yesterday at 6:37 P.M.",
+    textContent:
+      "Hello everybody! We would like to announce that 15th June we will start Kaspi Data Scienc Academy! Join us! Other information will be available in 10th June, so follow us!",
+    imageContent: "/static/datalab.png",
+    likesCount: 89,
+  },
+  {
+    avatar: "/static/elefanto.svg",
+    name: "Elefanto",
+    createdAt: "2 weeks ago",
+    textContent:
+      "Good day dear friends, we would like to congratulate our Mussina Medina with a promotion to middle ux/ui designer! Сongratulations!",
+    imageContent: "/static/uxui.avif",
+    likesCount: 20,
+  },
+  {
+    avatar: "/static/placeholder.png",
+    name: "Magripa",
+    createdAt: "1 months ago",
+    textContent:
+      "Attention! Attention! Attention! Today is the historical day, because we start our QLS website to the whole world! Come and enjoy!!!",
+    imageContent: "/static/firework.jpeg",
+    likesCount: 667,
+  },
+];
 
 export default Contract;

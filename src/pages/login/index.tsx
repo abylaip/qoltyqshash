@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@components";
 import Image from "next/image";
 import { useMoralis } from "react-moralis";
@@ -9,8 +9,13 @@ const Login = () => {
 
   const [name, setName] = useState("");
   const [field, setField] = useState("");
+  const [disable, setDisable] = useState(false);
 
-  const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
+  const { authenticate, isAuthenticated, user, Moralis, logout } = useMoralis();
+
+  useEffect(() => {
+    logout();
+  }, []);
 
   const loginHandle = (e: any, isCompany: boolean) => {
     e.preventDefault();
@@ -24,9 +29,14 @@ const Login = () => {
         name: name,
         field: field,
         isCompany: isCompany,
-        username: user?.getUsername,
+        username: name,
         ethAddress: user?.get("ethAddress"),
       });
+      localStorage.setItem("name", name);
+      localStorage.setItem("field", field);
+      localStorage.setItem("address", user?.get("ethAddress"));
+      localStorage.setItem("company", "t");
+      setDisable(true);
       router.push("/profile/company");
     } else {
       customers.save({
@@ -36,6 +46,11 @@ const Login = () => {
         username: name,
         ethAddress: user?.get("ethAddress"),
       });
+      localStorage.setItem("name", name);
+      localStorage.setItem("field", field);
+      localStorage.setItem("address", user?.get("ethAddress"));
+      localStorage.setItem("company", "f");
+      setDisable(true);
       router.push("/profile/employee");
     }
   };
@@ -69,12 +84,14 @@ const Login = () => {
             </div>
             <div className="flex flex-col space-y-4">
               <button
+                disabled={disable}
                 onClick={(e) => loginHandle(e, true)}
                 className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5"
               >
                 Log in as Company
               </button>
               <button
+                disabled={disable}
                 onClick={(e) => loginHandle(e, false)}
                 className="bg-primary rounded-md w-full py-3 text-white font-semibold leading-5"
               >

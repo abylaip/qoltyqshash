@@ -1,30 +1,42 @@
 import Image from "next/image";
 
-export const News = () => {
+export const News = ({
+  name,
+  createdAt,
+  avatar,
+  textContent,
+  imageContent,
+  likesCount,
+}: {
+  name: string;
+  createdAt: string;
+  avatar: string;
+  textContent: string;
+  imageContent?: string;
+  likesCount: number;
+}) => {
   return (
     <article className="rounded-lg bg-white p-5 shadow-lg">
       <div className="flex-1 flex flex-row items-center space-x-5 border-b border-gray-300 pb-4">
         <Image
-          src="/static/placeholder.png"
+          src={avatar}
           width={40}
           height={40}
-          className="rounded-full"
+          className="rounded-full object-contain"
         />
         <div>
-          <p className="font-semibold text-high-contrast text-xl">
-            Abylay's company
-          </p>
-          <p className="text-gray-500">3 hours ago</p>
+          <p className="font-semibold text-high-contrast text-xl">{name}</p>
+          <p className="text-gray-500">{createdAt}</p>
         </div>
       </div>
       <div className="py-2 flex flex-col space-y-2">
         <p className="text-high-contrast text-lg font-semibold">
-          Vsem hello kak dela che mutite
+          {textContent}
         </p>
-        <img src="/static/cowboy.jpeg" className="w-full relative" />
+        <img src={imageContent} className="w-full relative" />
       </div>
       <div className="text-low-contrast flex flex-row justify-between">
-        <p>300 000 people liked this post</p>
+        <p>{likesCount} people liked this post</p>
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { useMoralis } from "react-moralis";
+import Image from "next/image";
 
 export const Header = () => {
   const router = useRouter();
-
+  const { isAuthenticated } = useMoralis();
   const menu = [
     {
       name: "Home",
@@ -46,17 +48,36 @@ export const Header = () => {
               </li>
             ))}
           </ul>
-          <div className="flex space-x-2">
-            <Link href="/login">
-              <a
-                className={`${
-                  router.pathname === "/login" ? "font-semibold" : ""
-                }`}
-              >
-                Login
-              </a>
-            </Link>
-          </div>
+          {isAuthenticated ? (
+            <div
+              onClick={() => {
+                localStorage.getItem("company") === "t"
+                  ? router.push("/profile/company")
+                  : router.push("/profile/employee");
+              }}
+              className="flex flex-row items-center justify-center space-x-2 cursor-pointer"
+            >
+              <Image
+                src="/static/placeholder.png"
+                width={40}
+                height={40}
+                className="rounded-full object-contain"
+              />
+              <p>{localStorage.getItem("name")}</p>
+            </div>
+          ) : (
+            <div className="flex space-x-2">
+              <Link href="/login">
+                <a
+                  className={`${
+                    router.pathname === "/login" ? "font-semibold" : ""
+                  }`}
+                >
+                  Login
+                </a>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </header>

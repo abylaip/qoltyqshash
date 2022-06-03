@@ -3,22 +3,18 @@ import { Header, Modal } from "@components";
 import Image from "next/image";
 import { Progress, Switch } from "@ui";
 import { useRouter } from "next/router";
-import { useMoralis, useMoralisQuery } from "react-moralis";
 
 const Profile = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { user, isAuthenticated } = useMoralis();
-  const { data } = useMoralisQuery("Customer", (query) => query, [], {
-    live: true,
-  });
+  const [name, setName] = useState<any>("");
+  const [field, setField] = useState<any>("");
+
   useEffect(() => {
-    console.log(data);
-    if (!isAuthenticated) {
-      router.push("/login");
-    } else {
-      console.log(user?.get("ethAddress"));
-    }
+    const q_name = localStorage.getItem("name");
+    setName(q_name);
+    const q_field = localStorage.getItem("field");
+    setField(q_field);
   }, []);
 
   return (
@@ -62,15 +58,15 @@ const Profile = () => {
               />
               <div>
                 <p className="font-semibold text-high-contrast text-xl">
-                  Abylay Aiyp
+                  {name}
                 </p>
-                <p className="text-gray-500">Software Engineer</p>
+                <p className="text-gray-500">{field}</p>
               </div>
             </div>
             <div className="flex-1 flex flex-col space-y-2 items-center justify-start">
               <Progress value={100} />
-              <Progress value={99} />
-              <Progress value={40} />
+              <Progress value={100} />
+              <Progress value={100} />
             </div>
           </div>
           <div className="py-5 px-7 w-full flex flex-row justify-between">
@@ -107,39 +103,11 @@ const Profile = () => {
             from="2020"
             to="2023"
           />
-          <InfoCard
-            name="AITU"
-            field="Bachelors degree"
-            location="Nur-sultan, Kazakhstan"
-            from="2020"
-            to="2023"
-          />
-          <InfoCard
-            name="AITU"
-            field="Bachelors degree"
-            location="Nur-sultan, Kazakhstan"
-            from="2020"
-            to="2023"
-          />
         </section>
         <section className="rounded-lg bg-white shadow-lg p-7">
           <div className="pb-4 border-b border-gray-300">
             <p className="text-primary font-semibold text-xl">Experience</p>
           </div>
-          <InfoCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
-          <InfoCard
-            name="Qoltyqshash"
-            field="IT/Blockchain"
-            location="Kazakhstan"
-            from="2022"
-            to="2030"
-          />
           <InfoCard
             name="Qoltyqshash"
             field="IT/Blockchain"
@@ -207,3 +175,8 @@ const InfoCard = ({
 };
 
 export default Profile;
+
+// import { useMoralis, useMoralisQuery } from "react-moralis";
+// const { data } = useMoralisQuery("Customer", (query) => query, [], {
+//   live: false,
+// });
