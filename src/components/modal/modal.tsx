@@ -19,7 +19,7 @@ export const Modal = ({
     >
       <div
         className={`relative my-6 mx-auto ${
-          router.pathname === "/profile/company" ? "w-2/3" : "w-1/2"
+          router.pathname !== "/profile/company" ? "w-1/2" : "w-2/3"
         }`}
       >
         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none opacity-100">

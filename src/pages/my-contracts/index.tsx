@@ -86,7 +86,7 @@ const CompanySection = ({
   return (
     <section className="rounded-lg bg-white shadow-lg p-6">
       <div
-        onClick={() => router.push(`/my-contracts/${id}/company`)}
+        onClick={() => router.push(`/my-contracts/${id}/contract`)}
         className="pb-4 w-full flex flex-row items-center justify-between cursor-pointer border-b border-gray-300"
       >
         <p className="text-high-contrast text-lg font-semibold">{name}</p>

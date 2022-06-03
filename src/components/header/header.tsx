@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 export const Header = () => {
   const router = useRouter();
@@ -24,6 +25,10 @@ export const Header = () => {
   ];
   return (
     <header className="sticky top-0 z-10 py-5 bg-white shadow-lg">
+      <Head>
+        <title>Qoltyqshash</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <div className="px-32 flex w-full">
         <Link href="/">
           <a className="text-accent font-bold text-3xl leading-9">QLS</a>
@@ -49,16 +54,6 @@ export const Header = () => {
                 }`}
               >
                 Login
-              </a>
-            </Link>
-            <p>/</p>
-            <Link href="/register">
-              <a
-                className={`${
-                  router.pathname === "/register" ? "font-semibold" : ""
-                }`}
-              >
-                Register
               </a>
             </Link>
           </div>

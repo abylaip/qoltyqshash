@@ -1,10 +1,43 @@
+import { useState } from "react";
 import { Header } from "@components";
 import Image from "next/image";
-import Link from "next/link";
+import { useMoralis } from "react-moralis";
 import { useRouter } from "next/router";
 
 const Login = () => {
   const router = useRouter();
+
+  const [name, setName] = useState("");
+  const [field, setField] = useState("");
+
+  const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
+
+  const loginHandle = (isCompany: boolean) => {
+    authenticate();
+
+    const Customer = Moralis.Object.extend("Customer");
+    const customers = new Customer();
+
+    if (isCompany && isAuthenticated) {
+      customers.save({
+        name: name,
+        field: field,
+        isCompany: isCompany,
+        username: user?.getUsername,
+        ethAddress: user?.get("ethAddress"),
+      });
+      router.push("/profile/company");
+    } else {
+      customers.save({
+        name: name,
+        field: field,
+        isCompany: isCompany,
+        username: name,
+        ethAddress: user?.get("ethAddress"),
+      });
+      router.push("/profile/employee");
+    }
+  };
   return (
     <>
       <Header />
@@ -13,36 +46,39 @@ const Login = () => {
           <div className="flex flex-col space-y-4 rounded-lg bg-white p-10 xl:w-11/12 monic:w-8/12 shadow-lg">
             <div className="flex flex-col space-y-2">
               <p className="text-low-contrast text-sm leading-4 font-semibold">
-                Email
+                Write your fullname or name of the company*
               </p>
               <input
-                type="email"
-                placeholder="Email"
+                type="text"
+                placeholder="Name"
                 className="rounded-md border border-gray-300 p-2"
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
             <div className="flex flex-col space-y-2">
               <p className="text-low-contrast text-sm leading-4 font-semibold">
-                Password
+                Write your position or company field*
               </p>
               <input
-                type="password"
-                placeholder="Password"
+                type="text"
+                placeholder="Position"
                 className="rounded-md border border-gray-300 p-2"
+                onChange={(e) => setField(e.target.value)}
               />
             </div>
             <div className="flex flex-col space-y-4">
               <button
-                onClick={() => router.push("/profile/company")}
+                onClick={() => loginHandle(true)}
                 className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5"
               >
-                Log in
+                Log in as Company
               </button>
-              <Link href="/register">
-                <a className="border border-accent rounded-md w-full py-3 text-accent font-semibold leading-5 text-center">
-                  Don’t have an account yet? Sign up
-                </a>
-              </Link>
+              <button
+                onClick={() => loginHandle(false)}
+                className="bg-primary rounded-md w-full py-3 text-white font-semibold leading-5"
+              >
+                Log in as Employee
+              </button>
             </div>
           </div>
         </div>
