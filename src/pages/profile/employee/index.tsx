@@ -8,14 +8,16 @@ import { useMoralis, useMoralisQuery } from "react-moralis";
 const Profile = () => {
   const router = useRouter();
   const [showModal, setShowModal] = useState<boolean>(false);
-  const { isAuthenticated } = useMoralis();
+  const { user, isAuthenticated } = useMoralis();
   const { data } = useMoralisQuery("Customer", (query) => query, [], {
     live: true,
   });
   useEffect(() => {
     console.log(data);
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
       router.push("/login");
+    } else {
+      console.log(user?.get("ethAddress"));
     }
   }, []);
 

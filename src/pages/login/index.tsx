@@ -12,7 +12,8 @@ const Login = () => {
 
   const { authenticate, isAuthenticated, user, Moralis } = useMoralis();
 
-  const loginHandle = (isCompany: boolean) => {
+  const loginHandle = (e: any, isCompany: boolean) => {
+    e.preventDefault();
     authenticate();
 
     const Customer = Moralis.Object.extend("Customer");
@@ -68,13 +69,13 @@ const Login = () => {
             </div>
             <div className="flex flex-col space-y-4">
               <button
-                onClick={() => loginHandle(true)}
+                onClick={(e) => loginHandle(e, true)}
                 className="bg-accent rounded-md w-full py-3 text-white font-semibold leading-5"
               >
                 Log in as Company
               </button>
               <button
-                onClick={() => loginHandle(false)}
+                onClick={(e) => loginHandle(e, false)}
                 className="bg-primary rounded-md w-full py-3 text-white font-semibold leading-5"
               >
                 Log in as Employee

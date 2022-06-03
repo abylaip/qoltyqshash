@@ -7,8 +7,8 @@ import "@styles/globals.css";
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   return (
     <MoralisProvider
-      appId="pIilOYPP8JyjY5rbRuKOTcFSWGEZdHOrNSqW9MFW"
-      serverUrl="https://nih2kkol6ozb.usemoralis.com:2053/server"
+      appId="8ejlAvSfKTPHhw4QV4m1o3hBCTz5xU9fPh6l3wxO"
+      serverUrl="https://7ttg6gmdv0vh.usemoralis.com:2053/server"
     >
       <Component {...pageProps} />
     </MoralisProvider>
