@@ -1,7 +1,8 @@
 # qoltyqshash
 
-
 This project was generated with [superplate](https://github.com/pankod/superplate).
+
+Link to backend part: https://github.com/maratbekovaidar/blockchain/tree/master
 
 ## Getting Started
 
@@ -31,13 +32,11 @@ superplate is a Next.js all-in-one project generator. Create your project with t
 
 To learn more about **superplate**, please check out the [Documentation](https://github.com/pankod/superplate).
 
-
 ### **TailwindCSS**
 
 A utility-first CSS framework packed with classes like flex, pt-4, text-center and rotate-90 that can be composed to build any design, directly in your markup.
 
 [Go To Documentation](https://tailwindcss.com/docs)
-
 
 ### **CSS / styled-jsx**
 
@@ -45,14 +44,9 @@ Next.js comes with built-in support for CSS and styled-jsx. Styled-jsx is full, 
 
 [Go To Documentation](https://github.com/vercel/styled-jsx)
 
-
 ### **no**
 
-
-
 [Go To Documentation]()
-
-
 
 ## License
 
